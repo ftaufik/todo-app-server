@@ -1,10 +1,12 @@
 const dbConfig = require("../config/db.config.js");
-// const { Op } = require('sequelize')
+const pg = require('pg')
 
 const Sequelize = require("sequelize");
 const client = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
+  dialectOptions: dbConfig.dialectOptions,
+  dialectModule: require('pg'),
 
   pool: {
     max: dbConfig.pool.max,

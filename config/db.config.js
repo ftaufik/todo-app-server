@@ -1,12 +1,16 @@
-const Sequelize = require('sequelize');
-require("dotenv").config();
 // DATABASE SETUP
 module.exports = {
-    HOST: process.env.DB_HOST,
-    USER: process.env.DB_USER,
-    PASSWORD: process.env.DB_PASSWORD,
-    DB: process.env.DB_NAME,
+    HOST: "ep-summer-grass-95999114.ap-southeast-1.aws.neon.tech",
+    USER: "ftaufik.ros",
+    PASSWORD: "e7QB8pmuwrok",
+    DB: "todo-app",
     dialect: "postgres",
+    dialectOptions: {
+    ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    },
     pool: {
       max: 5,
       min: 0,

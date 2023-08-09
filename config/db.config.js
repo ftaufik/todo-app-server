@@ -1,6 +1,25 @@
 const Sequelize = require('sequelize');
 require("dotenv").config();
 // DATABASE SETUP
+module.exports = {
+    HOST: "containers-us-west-175.railway.app",
+    USER: "postgres",
+    PASSWORD: "Ejo3sHT8tUIlEPfhG1Fy",
+    DB: "railway",
+    dialect: "postgres",
+     dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  },
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
+};
 // module.exports = {
 //     HOST: process.env.DB_HOST,
 //     USER: process.env.DB_USER,
@@ -15,7 +34,6 @@ require("dotenv").config();
 //     }
 // };
 
-const db = new Sequelize(process.env.DB_URI)
 
 module.exports = db
 

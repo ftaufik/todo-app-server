@@ -1,0 +1,279 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Mockup Test API Docs",
+        "description": "This is API Documentation for Mockup Test FSW",
+        "termsOfService": "http://localhost:5000/tos",
+        "contact": {
+            "email": "ftaufik.ros@gmail.com",
+            "name": "Taufik Firmansyah"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/license/mit/"
+        }
+    },
+    "host": "localhost:8000",
+    "basePath": "/api/v1",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/user/login": {
+            "post": {
+                "description": "user login",
+                "operationId": "login",
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "login with user password",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "password"
+                            ],
+                            "properties": {
+                                "password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login berhasil",
+                        "schema": {
+                            "$ref": "#/definitions/successApiResponseSingle"
+                        }
+                    },
+                    "404": {
+                        "description": "User Tidak Ditemukan",
+                        "schema": {
+                            "$ref": "#/definitions/errorApiResponseSingle"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/errorApiResponseSingle"
+                        }
+                    }
+                }
+            }
+        },
+        "/todo/{id}": {
+            "get": {
+                "description": "get todo task by userId",
+                "operationId": "getTodo",
+                "tags": [
+                    "todo"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success retrieving data",
+                        "schema": {
+                            "$ref": "#/definitions/successApiResponseMultiple"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/errorApiResponseSingle"
+                        }
+                    }
+                }
+
+            }
+        },
+        "/todo/create/{id}": {
+            "post": {
+                "description": "create todo task by userId",
+                "operationId": "createTodo",
+                "tags": [
+                    "todo"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Success creating data",
+                        "schema": {
+                            "$ref": "#/definitions/successApiResponseMultiple"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/errorApiResponseSingle"
+                        }
+                    }
+                }
+
+            }
+        },
+        "/todo/edit/{id}": {
+            "put": {
+                "description": "edit todo task",
+                "operationId": "editTodo",
+                "tags": [
+                    "todo"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "name": "id",
+                        "in": "path",
+                        "type": "string"
+                    },
+                    {
+                        "name": "todo",
+                        "in": "body",
+                        "description": "edit todo",
+                        "schema": {
+                            "type": "object",
+                            "required": [
+                                "todo"
+                            ],
+                            "properties": {
+                                "todo": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success updating data",
+                        "schema": {
+                            "$ref": "#/definitions/successApiResponseMultiple"
+                        }
+                    },
+                    "404": {
+                        "description": "Todo not found",
+                        "schema": {
+                            "$ref": "#/definitions/errorApiResponseSingle"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/errorApiResponseSingle"
+                        }
+                    }
+                }
+            }
+        },
+        "/todo/delete/{id}": {
+            "delete": {
+                "description": "delete todo task",
+                "operationId": "deleteTodo",
+                "tags": [
+                    "todo"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "name": "id",
+                        "in": "path",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success deleting data",
+                        "schema": {
+                            "$ref": "#/definitions/successApiResponseMultiple"
+                        }
+                    },
+                    "404": {
+                        "description": "Todo not found",
+                        "schema": {
+                            "$ref": "#/definitions/errorApiResponseSingle"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/errorApiResponseSingle"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "successApiResponseSingle": {
+            "type": "object",
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object"
+                }
+            }
+        },
+        "successApiResponseMultiple": {
+            "type": "object",
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array"
+                }
+            }
+        },
+        "errorApiResponseSingle": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "errorApiResponseMultiple": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {}
+}

@@ -1,0 +1,42 @@
+module.exports = (sequelize, DataTypes) => {
+    const User = sequelize.define("User", {
+      id: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+        allowNull: false,
+        unique: true,
+      },
+      username: {
+        type: DataTypes.STRING,
+        validate: {
+            len: 5,
+            isAlphanumeric: true,
+            isUnique: (value, next) => {
+              User.findAll({
+                where: { username: value }
+              })
+              .then((user) => {
+                if (user.length != 0) {
+                  next(new Error('username already in use'));
+                }
+                next();
+              });
+            }
+          }
+      },
+      password: {
+        type: DataTypes.STRING,
+        validate: {
+            notEmpty: {
+                msg: "password required"
+            },
+            len: {
+                args: 4,
+                msg: "Password must be longer than 4"
+            }
+        }
+      },
+    });
+
+  return User;
+};
